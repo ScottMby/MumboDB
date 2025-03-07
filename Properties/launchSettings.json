@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MumboDB": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
