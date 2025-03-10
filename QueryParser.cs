@@ -26,7 +26,7 @@ namespace MumboDB
             ICommand? lastCommand = null;
             foreach (string commandPart in commandParts)
             {
-                IEnumerable<Type> commandType = types.Where(i => i.Name == commandPart.ToLower());
+                IEnumerable<Type> commandType = types.Where(i => i.Name.ToLower() == commandPart.ToLower());
                 //If command corresponds to type that implements ICommand then it is a command.
                 if (commandType.Any())
                 {

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using MumboDB.Commands.Interfaces;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
@@ -28,8 +29,14 @@ namespace MumboDB
                 byte[] buffer = new byte[2048];
 
                 Int32 bytesLength = connectedSocket.Receive(buffer, buffer.Length, SocketFlags.None);
-                string command = Encoding.UTF8.GetString(buffer, 0, bytesLength);
+                string commandString = Encoding.UTF8.GetString(buffer, 0, bytesLength);
 
+                List<ICommand> commands = QueryParser.Parse(commandString);
+
+                foreach(var command in commands)
+                {
+                    command.Execute();
+                }
             }
         }
     }
