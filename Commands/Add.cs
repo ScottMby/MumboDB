@@ -30,7 +30,7 @@ namespace MumboDB.Commands
             }
             if(int.TryParse(paramStrs[0], out int key))
             {
-                if(bTreeNode.keys.Count() < bTreeNode.maxKeys)
+                if(bTreeNode.keys.Count() < bTreeNode.maxKeys - 1)
                 {
                     bTreeNode.keys.Add(new KeyValuePair<int, string>(key, paramStrs[1]));
                     return bTreeNode;
