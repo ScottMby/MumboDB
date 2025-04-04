@@ -11,4 +11,9 @@ namespace MumboDB.Commands.Interfaces
         //Commands with params contain this string array
         public List<string> commandParams { get; set; }
     }
+    public interface ICommandWithParams<T> : ICommand<T>, ICommandWithParams
+    {
+        
+
+    }
 }

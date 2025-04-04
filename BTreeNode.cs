@@ -8,7 +8,8 @@ namespace MumboDB
 {
     public class BTreeNode
     {
-        public int[] key = new int[3];
+        public int maxKeys = 3;
+        public List<KeyValuePair<int, string>> keys = new();
         public List<BTreeNode> childNodes = new List<BTreeNode>();
         public bool isLeaf;
     }

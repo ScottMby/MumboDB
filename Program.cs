@@ -20,22 +20,33 @@ namespace MumboDB
 
             listenSocket.Listen(1);
 
-            //Accept when we get an incoming connection
-            Socket connectedSocket = listenSocket.Accept();
+            //Need to get root node here from file
 
-            while(true)
+            BTreeNode bTreeNode = new();
+
+            while (true)
             {
+                //Accept when we get an incoming connection
+                Socket connectedSocket = listenSocket.Accept();
+
+
+
                 //Set buffer 
                 byte[] buffer = new byte[2048];
 
                 Int32 bytesLength = connectedSocket.Receive(buffer, buffer.Length, SocketFlags.None);
                 string commandString = Encoding.UTF8.GetString(buffer, 0, bytesLength);
 
+                if (String.IsNullOrEmpty(commandString))
+                {
+                    continue;
+                }
+
                 List<ICommand> commands = QueryParser.Parse(commandString);
 
-                foreach(var command in commands)
+                foreach (var command in commands)
                 {
-                    command.Execute();
+                    command.Execute(bTreeNode);
                 }
             }
         }

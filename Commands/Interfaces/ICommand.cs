@@ -8,7 +8,15 @@ namespace MumboDB.Commands.Interfaces
 {
     public interface ICommand
     {
+        object Execute(BTreeNode rootNode);
+    }
+    public interface ICommand<T> : ICommand
+    {
         //All Commands Must Have an Execute Method
-        public void Execute();
+        /// <summary>
+        /// Executes the command.
+        /// </summary>
+        /// <param name="rootNode">The root node of the BTree</param>
+        new T Execute(BTreeNode rootNode);
     }
 }

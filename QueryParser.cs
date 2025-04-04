@@ -14,12 +14,11 @@ namespace MumboDB
         {
             List<ICommand> queryList = new();
 
-            //Get all types within program that implement ICommand
+            //Get all types within program that implement any version of ICommand
             var type = typeof(ICommand);
             var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
                 .Where(p => type.IsAssignableFrom(p));
-
 
             string[] commandParts = commandString.Split(' ');
 
@@ -32,7 +31,7 @@ namespace MumboDB
                 {
                     //If one command matching the query exists, create an instance of it
                     Type command = commandType.Single();
-                    lastCommand = (ICommand?)Activator.CreateInstance(command);
+                    lastCommand = (ICommand)Activator.CreateInstance(command);
                     if (lastCommand != null)
                     {
                         queryList.Add(lastCommand);
@@ -46,9 +45,9 @@ namespace MumboDB
                 {
                     //Is not a command, check if is parameter
                     var paramType = typeof(ICommandWithParams);
-                    if(lastCommand != null)
+                    if (lastCommand != null)
                     {
-                        if(paramType.IsAssignableFrom(lastCommand.GetType()))
+                        if (paramType.IsAssignableFrom(lastCommand.GetType()))
                         {
                             if (lastCommand is ICommandWithParams lastCommandWithParams)
                             {
